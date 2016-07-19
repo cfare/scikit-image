@@ -321,6 +321,24 @@ def local_binary_pattern(image, P, R, method='default'):
     return output
 
 
+def local_ternary_pattern(image, P, R, method='default'):
+    """Gray scale and rotation invariant LTP (Local Ternary Patterns).
+
+    LTP is a variation of the LBP descriptor that uses a threshold.
+    """
+    assert_nD(image, 2)
+
+    methods = {
+        'default': ord('D'),
+        'ror': ord('R'),
+        'uniform': ord('U'),
+        'nri_uniform': ord('N'),
+        'var': ord('V')
+    }
+    image = np.ascontiguousarray(image, dtype=np.double)
+    output = _local_binary_pattern(image, P, R, methods[method.lower()])
+    return output
+
 def multiblock_lbp(int_image, r, c, width, height):
     """Multi-block local binary pattern (MB-LBP).
 
