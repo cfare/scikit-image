@@ -8,6 +8,7 @@ from ..util import img_as_float
 from ..color import gray2rgb
 from ._texture import (_glcm_loop,
                        _local_binary_pattern,
+                       _local_ternary_pattern,
                        _multiblock_lbp)
 
 
@@ -321,7 +322,7 @@ def local_binary_pattern(image, P, R, method='default'):
     return output
 
 
-def local_ternary_pattern(image, P, R, method='default'):
+def local_ternary_pattern(image, P, R, T, method='default'):
     """Gray scale and rotation invariant LTP (Local Ternary Patterns).
 
     LTP is a variation of the LBP descriptor that uses a threshold.
@@ -336,7 +337,7 @@ def local_ternary_pattern(image, P, R, method='default'):
         'var': ord('V')
     }
     image = np.ascontiguousarray(image, dtype=np.double)
-    output = _local_binary_pattern(image, P, R, methods[method.lower()])
+    output = _local_ternary_pattern(image, P, R, T, methods[method.lower()])
     return output
 
 def multiblock_lbp(int_image, r, c, width, height):
